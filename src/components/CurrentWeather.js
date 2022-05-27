@@ -5,7 +5,7 @@ const CurrentWeather = props=>{
 
     
     return(
-        <div></div>
+        <div>{rain} {tempMax} {tempMin} {weather}</div>
     )
 }
 

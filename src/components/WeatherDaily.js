@@ -28,7 +28,7 @@ const WeatherDaily = props =>{
         <div className = 'weatherNode'>
             <h2>{test[0].slice(0,3)}</h2>
             <h3>{test[2]} {test[1]}</h3>
-            <img src={adjustWeatherIcon(weather)} className = 'weather-icon'/>
+            <img src={adjustWeatherIcon(weather)} className = 'weather-icon' alt='weather-icon'/>
             <p>Rain: {rain}%</p> 
             <p>Max: {tempMax}°</p>
             <p>Min: {tempMin}°</p>  

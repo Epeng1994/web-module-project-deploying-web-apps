@@ -4,7 +4,6 @@ import './App.css';
 import WeatherDaily from './components/WeatherDaily'
 import CurrentWeather from './components/CurrentWeather'
 
-const weatherAPI = '99252094471af63f3bc4db3139381388'
 
 
 function App() {
@@ -13,6 +12,7 @@ function App() {
     cityName:'queens',
     cityState:'new york'
   })
+  
   const [forecast, setForecast] = useState([])
 
 
@@ -31,11 +31,11 @@ function App() {
 
   const handleSubmit =e=>{
     e.preventDefault()
-    axios.get(`http://api.openweathermap.org/geo/1.0/direct?q=${city.cityName}&limit=5&appid=${weatherAPI}`)
+    axios.get(`http://api.openweathermap.org/geo/1.0/direct?q=${city.cityName}&limit=5&appid=${process.env.REACT_APP_weatherAPI}`)
       .then(res=>{
         //console.log(res.data)
         let result = res.data.find(a=>a.state.toLowerCase()===city.cityState) //single city object
-        axios.get(`https://api.openweathermap.org/data/2.5/onecall?lat=${Math.ceil(result.lat)}&lon=${Math.ceil(result.lon)}&exclude=hourly,minutely&appid=${weatherAPI}`)
+        axios.get(`https://api.openweathermap.org/data/2.5/onecall?lat=${Math.ceil(result.lat)}&lon=${Math.ceil(result.lon)}&exclude=hourly,minutely&appid=${process.env.REACT_APP_weatherAPI}`)
           .then(res=>{
             console.log(res.data.daily)
             let result = res.data.daily.map(a=>{
@@ -74,8 +74,8 @@ function App() {
       </form>
       </header>
       7 day forecast
+      {forecast[0] ? <CurrentWeather info = {forecast[0]}></CurrentWeather> : ''}
       <div className = 'weatherContainer'>
-      <CurrentWeather info = {forecast[0]}></CurrentWeather>
         {
           forecast.map((a,i)=>{
             if(i===0){
