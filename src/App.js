@@ -4,9 +4,8 @@ import './App.css';
 import WeatherDaily from './components/WeatherDaily'
 import CurrentWeather from './components/CurrentWeather'
 
-//http://api.openweathermap.org/geo/1.0/direct?q=${city.name}&limit=5&appid=99252094471af63f3bc4db3139381388
-//https://api.openweathermap.org/data/2.5/forecast?lat=${Math.ceil(result.lat)}&lon=${Math.ceil(result.lon)}&appid=99252094471af63f3bc4db3139381388
-//https://api.openweathermap.org/data/2.5/onecall?lat=33.44&lon=-94.04&exclude=hourly,daily&appid=99252094471af63f3bc4db3139381388
+const weatherAPI = '99252094471af63f3bc4db3139381388'
+
 
 function App() {
   
@@ -32,11 +31,11 @@ function App() {
 
   const handleSubmit =e=>{
     e.preventDefault()
-    axios.get(`http://api.openweathermap.org/geo/1.0/direct?q=${city.cityName}&limit=5&appid=99252094471af63f3bc4db3139381388`)
+    axios.get(`http://api.openweathermap.org/geo/1.0/direct?q=${city.cityName}&limit=5&appid=${weatherAPI}`)
       .then(res=>{
         //console.log(res.data)
         let result = res.data.find(a=>a.state.toLowerCase()===city.cityState) //single city object
-        axios.get(`https://api.openweathermap.org/data/2.5/onecall?lat=${Math.ceil(result.lat)}&lon=${Math.ceil(result.lon)}&exclude=hourly,minutely&appid=99252094471af63f3bc4db3139381388`)
+        axios.get(`https://api.openweathermap.org/data/2.5/onecall?lat=${Math.ceil(result.lat)}&lon=${Math.ceil(result.lon)}&exclude=hourly,minutely&appid=${weatherAPI}`)
           .then(res=>{
             console.log(res.data.daily)
             let result = res.data.daily.map(a=>{
